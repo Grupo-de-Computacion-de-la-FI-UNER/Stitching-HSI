@@ -15,8 +15,6 @@ import datetime
 from time import perf_counter
 
 
-R = 0
-C = 0
 
 is_first_image = True
 flag_view  = True
@@ -93,22 +91,21 @@ while (cap.isOpened()):
     
     cv2.imshow('new_image',frame_with_text_info)
     ## end prepare image with info text data
-    
-
-    # if image_analisys:
-    #     pre_analisys.start()
-    #     new_image_capture.set() 
+  
     
     if ret == True:
         #Dar inicio al stream y formación de panorámica
         if is_first_image:# and (cv2.waitKey(1) & 0xFF == ord('i')):
             panoramic = new_image.copy()
             last_image = new_image.copy()
+            pac.R = 0
+            pac.C = 0
+            
             is_first_image = False
 
         else: # and focus:
             try:           
-                panoramic, growing, R, C = pac.build(panoramic, last_image, new_image, mask_object, R, C)
+                panoramic, growing, pac.R, pac.C = pac.build(panoramic, last_image, new_image, mask_object, pac.R, pac.C)
                 if growing:
                     image_stack.append(new_image)
                     last_image = new_image# .copy() # @todo: Se puede sacar el .copy() SI NO SE AGREGO LA NUEVA IMAGEN NO DEBE ASIGNARSE A LAST IMAGE
@@ -118,6 +115,8 @@ while (cap.isOpened()):
             except Exception as e:
                 flag_view = False
                 print(e)
+        
+                
          
         if flag_view:
             view = cv2.resize(panoramic, (700,500))

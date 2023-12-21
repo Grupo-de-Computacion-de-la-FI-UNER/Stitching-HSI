@@ -22,6 +22,8 @@ from modules import mask_search
 from modules import build_panoramic_image
 
 # Establecer conexión con la cámara. Adquirir imagen. --> OpenCV, PySpin, EasyPySpin
+R = 0
+C = 0
 
 def build (panoramic, last_image, new_image, mask: MaskExtractor, R, C):
     """
