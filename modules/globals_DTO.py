@@ -4,6 +4,6 @@ from modules.mask_extracting import MaskExtractor
 
 MASK = MaskExtractor()
 
-R = 0
+# R = 0
 
-C = 0
+# C = 0

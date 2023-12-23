@@ -75,7 +75,8 @@ while (cap.isOpened()):
         changing_text = "measured FPS: " + str(round(frame_rate,2)) + "\n" + \
                         "var Laplacian: " + var_lap   + "\n" + \
                         "var Sobel:  " + var_sobel + "\n"  + \
-                        "SSIM: "  + str_ssim
+                        "SSIM: "  + str_ssim 
+                        
 
 
         frame_rate = 0
@@ -100,7 +101,7 @@ while (cap.isOpened()):
             last_image = new_image.copy()
             pac.R = 0
             pac.C = 0
-            
+
             is_first_image = False
 
         else: # and focus:
