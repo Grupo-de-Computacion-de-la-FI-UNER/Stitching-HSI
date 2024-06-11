@@ -47,10 +47,9 @@ fix_text = "API Backend: " + cap.getBackendName()\
             + '\n' + "cv2 fps: " + str(cap.get(cv2.CAP_PROP_FPS)) + '\n' 
 
 t_end = perf_counter()
-
 counter = 1
 frame_rate = 0
-n_prom = 10
+n_prom = 20
 
 changing_text = "measure FPS: " + str(frame_rate) + "\n"+\
                 "var Laplacian: " + \
@@ -67,16 +66,21 @@ while (cap.isOpened()):
         counter += 1
     else:
         frame_rate /= n_prom
-        #frame_rate_line = "measure FPS: " + str(round(frame_rate,2)) + "\n"
-        var_lap = str(round(cv2.Laplacian(new_image,cv2.CV_64F,0).var(),2))
-        var_sobel = str(round(cv2.Sobel(new_image,cv2.CV_64F,1,0,ksize=5).var(),2))
-        str_ssim = str(round(ssim(last_image, new_image,channel_axis=2, multichannel=True ),2))
+        frame_rate_line = "measure FPS: " + str(round(frame_rate,2)) + "\n"
+      
+        var_lap = "0"
+        var_sobel = "0"
+        str_ssim = "0"
+        
+        # var_lap = str(round(cv2.Laplacian(new_image,cv2.CV_64F,0).var(),2))
+        # var_sobel = str(round(cv2.Sobel(new_image,cv2.CV_64F,1,0,ksize=5).var(),2))
+        # str_ssim = str(round(ssim(last_image, new_image,channel_axis=2, multichannel=True ),2))
 
-        changing_text = "measured FPS: " + str(round(frame_rate,2)) + "\n" + \
+        changing_text = frame_rate_line + "\n" + \
                         "var Laplacian: " + var_lap   + "\n" + \
                         "var Sobel:  " + var_sobel + "\n"  + \
                         "SSIM: "  + str_ssim 
-                        
+             
 
 
         frame_rate = 0
@@ -95,7 +99,7 @@ while (cap.isOpened()):
   
     
     if ret == True:
-        #Dar inicio al stream y formación de panorámica
+        # Dar inicio al stream y formación de panorámica
         if is_first_image:# and (cv2.waitKey(1) & 0xFF == ord('i')):
             panoramic = new_image.copy()
             last_image = new_image.copy()
